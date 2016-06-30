@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TeachersModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="TeachersModelStoreContainer">
+    <EntitySet Name="StudyCycleSet" EntityType="TeachersModel.Store.StudyCycleSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DepartmentSet" EntityType="TeachersModel.Store.DepartmentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FacultySet" EntityType="TeachersModel.Store.FacultySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GroupSet" EntityType="TeachersModel.Store.GroupSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="StudyActionSet" EntityType="TeachersModel.Store.StudyActionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ModuleSet" EntityType="TeachersModel.Store.ModuleSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ModuleStudyActionSet" EntityType="TeachersModel.Store.ModuleStudyActionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TeacherSet" EntityType="TeachersModel.Store.TeacherSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="NormSet" EntityType="TeachersModel.Store.NormSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="FormulaSet" EntityType="TeachersModel.Store.FormulaSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TeacherWorkloadSet" EntityType="TeachersModel.Store.TeacherWorkloadSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FacultyDepartment" Association="TeachersModel.Store.FacultyDepartment">
+      <End Role="Faculty" EntitySet="FacultySet" />
+      <End Role="Department" EntitySet="DepartmentSet" />
+    </AssociationSet>
+    <AssociationSet Name="DepartmentGroup" Association="TeachersModel.Store.DepartmentGroup">
+      <End Role="Department" EntitySet="DepartmentSet" />
+      <End Role="Group" EntitySet="GroupSet" />
+    </AssociationSet>
+    <AssociationSet Name="StudyActionsModuleStudyAction" Association="TeachersModel.Store.StudyActionsModuleStudyAction">
+      <End Role="StudyActions" EntitySet="StudyActionSet" />
+      <End Role="ModuleStudyAction" EntitySet="ModuleStudyActionSet" />
+    </AssociationSet>
+    <AssociationSet Name="ModuleModuleStudyAction" Association="TeachersModel.Store.ModuleModuleStudyAction">
+      <End Role="Module" EntitySet="ModuleSet" />
+      <End Role="ModuleStudyAction" EntitySet="ModuleStudyActionSet" />
+    </AssociationSet>
+    <AssociationSet Name="TeacherModuleStudyAction" Association="TeachersModel.Store.TeacherModuleStudyAction">
+      <End Role="Teacher" EntitySet="TeacherSet" />
+      <End Role="ModuleStudyAction" EntitySet="ModuleStudyActionSet" />
+    </AssociationSet>
+    <AssociationSet Name="GroupModuleStudyAction" Association="TeachersModel.Store.GroupModuleStudyAction">
+      <End Role="Group" EntitySet="GroupSet" />
+      <End Role="ModuleStudyAction" EntitySet="ModuleStudyActionSet" />
+    </AssociationSet>
+    <AssociationSet Name="DepartmentTeacher" Association="TeachersModel.Store.DepartmentTeacher">
+      <End Role="Department" EntitySet="DepartmentSet" />
+      <End Role="Teacher" EntitySet="TeacherSet" />
+    </AssociationSet>
+    <AssociationSet Name="StudyCycleModule" Association="TeachersModel.Store.StudyCycleModule">
+      <End Role="StudyCycle" EntitySet="StudyCycleSet" />
+      <End Role="Module" EntitySet="ModuleSet" />
+    </AssociationSet>
+    <AssociationSet Name="TeacherTeacherWorkload" Association="TeachersModel.Store.TeacherTeacherWorkload">
+      <End Role="Teacher" EntitySet="TeacherSet" />
+      <End Role="TeacherWorkload" EntitySet="TeacherWorkloadSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="StudyCycleSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DepartmentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Faculty_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="FacultySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GroupSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Budget_students" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="Contract_students" Type="int" Nullable="false" DefaultValue="0" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Course" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Department_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="StudyActionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsIndividual" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ModuleSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Semester" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Credits" Type="float" Nullable="false" />
+    <Property Name="Lections" Type="int" Nullable="true" />
+    <Property Name="Practices" Type="int" Nullable="true" />
+    <Property Name="Labs" Type="int" Nullable="true" />
+    <Property Name="Self" Type="int" Nullable="true" />
+    <Property Name="Exam" Type="int" Nullable="true" />
+    <Property Name="ZALIK" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Module_tests" Type="int" Nullable="true" />
+    <Property Name="Course_work" Type="int" Nullable="true" />
+    <Property Name="Course_project" Type="int" Nullable="true" />
+    <Property Name="RGR" Type="int" Nullable="true" />
+    <Property Name="DKR" Type="int" Nullable="true" />
+    <Property Name="Referat" Type="int" Nullable="true" />
+    <Property Name="StudyCycle_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ModuleStudyActionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Hours" Type="int" Nullable="false" />
+    <Property Name="Year" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StudyActions_Id" Type="int" Nullable="true" />
+    <Property Name="Module_Id" Type="int" Nullable="true" />
+    <Property Name="Teacher_Id" Type="int" Nullable="true" />
+    <Property Name="Group_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="TeacherSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rank" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TeacherType" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Degree" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Department_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="NormSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="MinHours" Type="int" Nullable="false" />
+    <Property Name="MaxHours" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FormulaSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TeacherWorkloadSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="Year" Type="int" Nullable="false" />
+    <Property Name="Teacher_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FacultyDepartment">
+    <End Role="Faculty" Type="TeachersModel.Store.FacultySet" Multiplicity="0..1" />
+    <End Role="Department" Type="TeachersModel.Store.DepartmentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Faculty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Department">
+        <PropertyRef Name="Faculty_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DepartmentGroup">
+    <End Role="Department" Type="TeachersModel.Store.DepartmentSet" Multiplicity="0..1" />
+    <End Role="Group" Type="TeachersModel.Store.GroupSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Group">
+        <PropertyRef Name="Department_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudyActionsModuleStudyAction">
+    <End Role="StudyActions" Type="TeachersModel.Store.StudyActionSet" Multiplicity="0..1" />
+    <End Role="ModuleStudyAction" Type="TeachersModel.Store.ModuleStudyActionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StudyActions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ModuleStudyAction">
+        <PropertyRef Name="StudyActions_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ModuleModuleStudyAction">
+    <End Role="Module" Type="TeachersModel.Store.ModuleSet" Multiplicity="0..1" />
+    <End Role="ModuleStudyAction" Type="TeachersModel.Store.ModuleStudyActionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Module">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ModuleStudyAction">
+        <PropertyRef Name="Module_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TeacherModuleStudyAction">
+    <End Role="Teacher" Type="TeachersModel.Store.TeacherSet" Multiplicity="0..1" />
+    <End Role="ModuleStudyAction" Type="TeachersModel.Store.ModuleStudyActionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ModuleStudyAction">
+        <PropertyRef Name="Teacher_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="GroupModuleStudyAction">
+    <End Role="Group" Type="TeachersModel.Store.GroupSet" Multiplicity="0..1" />
+    <End Role="ModuleStudyAction" Type="TeachersModel.Store.ModuleStudyActionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Group">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ModuleStudyAction">
+        <PropertyRef Name="Group_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DepartmentTeacher">
+    <End Role="Department" Type="TeachersModel.Store.DepartmentSet" Multiplicity="0..1" />
+    <End Role="Teacher" Type="TeachersModel.Store.TeacherSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="Department_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudyCycleModule">
+    <End Role="StudyCycle" Type="TeachersModel.Store.StudyCycleSet" Multiplicity="0..1" />
+    <End Role="Module" Type="TeachersModel.Store.ModuleSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StudyCycle">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Module">
+        <PropertyRef Name="StudyCycle_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TeacherTeacherWorkload">
+    <End Role="Teacher" Type="TeachersModel.Store.TeacherSet" Multiplicity="1" />
+    <End Role="TeacherWorkload" Type="TeachersModel.Store.TeacherWorkloadSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TeacherWorkload">
+        <PropertyRef Name="Teacher_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="TeachersModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="TeachersModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="StudyCycleSet" EntityType="TeachersModel.StudyCycle" />
+          <EntitySet Name="DepartmentSet" EntityType="TeachersModel.Department" />
+          <EntitySet Name="FacultySet" EntityType="TeachersModel.Faculty" />
+          <AssociationSet Name="FacultyDepartment" Association="TeachersModel.FacultyDepartment">
+            <End Role="Faculty" EntitySet="FacultySet" />
+            <End Role="Department" EntitySet="DepartmentSet" />
+          </AssociationSet>
+          <EntitySet Name="GroupSet" EntityType="TeachersModel.Group" />
+          <EntitySet Name="StudyActionSet" EntityType="TeachersModel.StudyAction" />
+          <AssociationSet Name="DepartmentGroup" Association="TeachersModel.DepartmentGroup">
+            <End Role="Department" EntitySet="DepartmentSet" />
+            <End Role="Group" EntitySet="GroupSet" />
+          </AssociationSet>
+          <EntitySet Name="ModuleSet" EntityType="TeachersModel.Module" />
+          <EntitySet Name="ModuleStudyActionSet" EntityType="TeachersModel.ModuleStudyAction" />
+          <AssociationSet Name="StudyActionsModuleStudyAction" Association="TeachersModel.StudyActionsModuleStudyAction">
+            <End Role="StudyActions" EntitySet="StudyActionSet" />
+            <End Role="ModuleStudyAction" EntitySet="ModuleStudyActionSet" />
+          </AssociationSet>
+          <AssociationSet Name="ModuleModuleStudyAction" Association="TeachersModel.ModuleModuleStudyAction">
+            <End Role="Module" EntitySet="ModuleSet" />
+            <End Role="ModuleStudyAction" EntitySet="ModuleStudyActionSet" />
+          </AssociationSet>
+          <EntitySet Name="TeacherSet" EntityType="TeachersModel.Teacher" />
+          <AssociationSet Name="TeacherModuleStudyAction" Association="TeachersModel.TeacherModuleStudyAction">
+            <End Role="Teacher" EntitySet="TeacherSet" />
+            <End Role="ModuleStudyAction" EntitySet="ModuleStudyActionSet" />
+          </AssociationSet>
+          <AssociationSet Name="GroupModuleStudyAction" Association="TeachersModel.GroupModuleStudyAction">
+            <End Role="Group" EntitySet="GroupSet" />
+            <End Role="ModuleStudyAction" EntitySet="ModuleStudyActionSet" />
+          </AssociationSet>
+          <AssociationSet Name="DepartmentTeacher" Association="TeachersModel.DepartmentTeacher">
+            <End Role="Department" EntitySet="DepartmentSet" />
+            <End Role="Teacher" EntitySet="TeacherSet" />
+          </AssociationSet>
+          <AssociationSet Name="StudyCycleModule" Association="TeachersModel.StudyCycleModule">
+            <End Role="StudyCycle" EntitySet="StudyCycleSet" />
+            <End Role="Module" EntitySet="ModuleSet" />
+          </AssociationSet>
+          <EntitySet Name="NormSet" EntityType="TeachersModel.Norm" />
+          <EntitySet Name="FormulaSet" EntityType="TeachersModel.Formula" />
+          <EntitySet Name="TeacherWorkloadSet" EntityType="TeachersModel.TeacherWorkload" />
+          <AssociationSet Name="TeacherTeacherWorkload" Association="TeachersModel.TeacherTeacherWorkload">
+            <End Role="Teacher" EntitySet="TeacherSet" />
+            <End Role="TeacherWorkload" EntitySet="TeacherWorkloadSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="StudyCycle">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Module" Relationship="TeachersModel.StudyCycleModule" FromRole="StudyCycle" ToRole="Module" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="Faculty" Relationship="TeachersModel.FacultyDepartment" FromRole="Department" ToRole="Faculty" />
+          <NavigationProperty Name="Teacher" Relationship="TeachersModel.DepartmentTeacher" FromRole="Department" ToRole="Teacher" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="FacultyDepartment">
+          <End Type="TeachersModel.Faculty" Role="Faculty" Multiplicity="0..1" />
+          <End Type="TeachersModel.Department" Role="Department" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Group">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Budget_students" Type="Int32" Nullable="false" DefaultValue="0" />
+          <Property Name="Contract_students" Type="Int32" Nullable="false" DefaultValue="0" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="TeachersModel.DepartmentGroup" FromRole="Group" ToRole="Department" />
+          <Property Name="Course" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudyAction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="IsIndividual" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="DepartmentGroup">
+          <End Type="TeachersModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="TeachersModel.Group" Role="Group" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Module">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Semester" Type="String" Nullable="true" />
+          <Property Name="Credits" Type="Double" Nullable="false" />
+          <Property Name="Lections" Type="Int32" Nullable="true" />
+          <Property Name="Practices" Type="Int32" Nullable="true" />
+          <Property Name="Labs" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="StudyCycle" Relationship="TeachersModel.StudyCycleModule" FromRole="Module" ToRole="StudyCycle" />
+          <Property Name="Self" Type="Int32" Nullable="true" >
+            <Documentation>
+              <LongDescription>Самостійна робота студентів</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="Exam" Type="Int32" Nullable="true" />
+          <Property Name="ZALIK" Type="String" Nullable="true" />
+          <Property Name="Module_tests" Type="Int32" Nullable="true" />
+          <Property Name="Course_work" Type="Int32" Nullable="true" />
+          <Property Name="Course_project" Type="Int32" Nullable="true" />
+          <Property Name="RGR" Type="Int32" Nullable="true" />
+          <Property Name="DKR" Type="Int32" Nullable="true" />
+          <Property Name="Referat" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="ModuleStudyActions" Relationship="TeachersModel.ModuleModuleStudyAction" FromRole="Module" ToRole="ModuleStudyAction" />
+        </EntityType>
+        <EntityType Name="ModuleStudyAction">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Hours" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StudyActions" Relationship="TeachersModel.StudyActionsModuleStudyAction" FromRole="ModuleStudyAction" ToRole="StudyActions" />
+          <NavigationProperty Name="Module" Relationship="TeachersModel.ModuleModuleStudyAction" FromRole="ModuleStudyAction" ToRole="Module" />
+          <NavigationProperty Name="Teacher" Relationship="TeachersModel.TeacherModuleStudyAction" FromRole="ModuleStudyAction" ToRole="Teacher" />
+          <NavigationProperty Name="Group" Relationship="TeachersModel.GroupModuleStudyAction" FromRole="ModuleStudyAction" ToRole="Group" />
+          <Property Name="Year" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="StudyActionsModuleStudyAction">
+          <End Type="TeachersModel.StudyAction" Role="StudyActions" Multiplicity="0..1" />
+          <End Type="TeachersModel.ModuleStudyAction" Role="ModuleStudyAction" Multiplicity="*" />
+        </Association>
+        <Association Name="ModuleModuleStudyAction">
+          <End Type="TeachersModel.Module" Role="Module" Multiplicity="0..1" />
+          <End Type="TeachersModel.ModuleStudyAction" Role="ModuleStudyAction" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Teacher">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <NavigationProperty Name="ModuleStudyAction" Relationship="TeachersModel.TeacherModuleStudyAction" FromRole="Teacher" ToRole="ModuleStudyAction" />
+          <Property Name="Rank" Type="String" Nullable="false" />
+          <Property Name="TeacherType" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>Сумісник/штат/погодинно</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="Position" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>Асистент/ст.викладач/доцент/професор</LongDescription>
+            </Documentation>
+          </Property>
+          <Property Name="Degree" Type="String" Nullable="false" >
+            <Documentation>
+              <LongDescription>к.т.н./д.т.н.</LongDescription>
+            </Documentation>
+          </Property>
+          <NavigationProperty Name="Department" Relationship="TeachersModel.DepartmentTeacher" FromRole="Teacher" ToRole="Department" />
+          <NavigationProperty Name="TeacherWorkload" Relationship="TeachersModel.TeacherTeacherWorkload" FromRole="Teacher" ToRole="TeacherWorkload" />
+        </EntityType>
+        <Association Name="TeacherModuleStudyAction">
+          <End Type="TeachersModel.Teacher" Role="Teacher" Multiplicity="0..1" />
+          <End Type="TeachersModel.ModuleStudyAction" Role="ModuleStudyAction" Multiplicity="*" />
+        </Association>
+        <Association Name="GroupModuleStudyAction">
+          <End Type="TeachersModel.Group" Role="Group" Multiplicity="0..1" />
+          <End Type="TeachersModel.ModuleStudyAction" Role="ModuleStudyAction" Multiplicity="*" />
+        </Association>
+        <Association Name="DepartmentTeacher">
+          <End Type="TeachersModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="TeachersModel.Teacher" Role="Teacher" Multiplicity="*" />
+        </Association>
+        <Association Name="StudyCycleModule">
+          <End Type="TeachersModel.StudyCycle" Role="StudyCycle" Multiplicity="0..1" />
+          <End Type="TeachersModel.Module" Role="Module" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Norm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Position" Type="String" Nullable="false" />
+          <Property Name="MinHours" Type="Int32" Nullable="false" />
+          <Property Name="MaxHours" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Formula">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TeacherWorkload">
+          <Documentation>
+            <LongDescription>Semi-permanent table containing results</LongDescription>
+          </Documentation>
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Teacher" Relationship="TeachersModel.TeacherTeacherWorkload" FromRole="TeacherWorkload" ToRole="Teacher" />
+        </EntityType>
+        <Association Name="TeacherTeacherWorkload">
+          <End Type="TeachersModel.Teacher" Role="Teacher" Multiplicity="1" />
+          <End Type="TeachersModel.TeacherWorkload" Role="TeacherWorkload" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="TeachersModelStoreContainer" CdmEntityContainer="TeachersModelContainer">
+    <EntitySetMapping Name="StudyCycleSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.StudyCycle)">
+        <MappingFragment StoreEntitySet="StudyCycleSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DepartmentSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.Department)">
+        <MappingFragment StoreEntitySet="DepartmentSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FacultySet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.Faculty)">
+        <MappingFragment StoreEntitySet="FacultySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GroupSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.Group)">
+        <MappingFragment StoreEntitySet="GroupSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Budget_students" ColumnName="Budget_students" />
+          <ScalarProperty Name="Contract_students" ColumnName="Contract_students" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Course" ColumnName="Course" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudyActionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.StudyAction)">
+        <MappingFragment StoreEntitySet="StudyActionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsIndividual" ColumnName="IsIndividual" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.Module)">
+        <MappingFragment StoreEntitySet="ModuleSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Semester" ColumnName="Semester" />
+          <ScalarProperty Name="Credits" ColumnName="Credits" />
+          <ScalarProperty Name="Lections" ColumnName="Lections" />
+          <ScalarProperty Name="Practices" ColumnName="Practices" />
+          <ScalarProperty Name="Labs" ColumnName="Labs" />
+          <ScalarProperty Name="Self" ColumnName="Self" />
+          <ScalarProperty Name="Exam" ColumnName="Exam" />
+          <ScalarProperty Name="ZALIK" ColumnName="ZALIK" />
+          <ScalarProperty Name="Module_tests" ColumnName="Module_tests" />
+          <ScalarProperty Name="Course_work" ColumnName="Course_work" />
+          <ScalarProperty Name="Course_project" ColumnName="Course_project" />
+          <ScalarProperty Name="RGR" ColumnName="RGR" />
+          <ScalarProperty Name="DKR" ColumnName="DKR" />
+          <ScalarProperty Name="Referat" ColumnName="Referat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ModuleStudyActionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.ModuleStudyAction)">
+        <MappingFragment StoreEntitySet="ModuleStudyActionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeacherSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.Teacher)">
+        <MappingFragment StoreEntitySet="TeacherSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Rank" ColumnName="Rank" />
+          <ScalarProperty Name="TeacherType" ColumnName="TeacherType" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Degree" ColumnName="Degree" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NormSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.Norm)">
+        <MappingFragment StoreEntitySet="NormSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="MinHours" ColumnName="MinHours" />
+          <ScalarProperty Name="MaxHours" ColumnName="MaxHours" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="FormulaSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.Formula)">
+        <MappingFragment StoreEntitySet="FormulaSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TeacherWorkloadSet">
+      <EntityTypeMapping TypeName="IsTypeOf(TeachersModel.TeacherWorkload)">
+        <MappingFragment StoreEntitySet="TeacherWorkloadSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="FacultyDepartment" TypeName="TeachersModel.FacultyDepartment" StoreEntitySet="DepartmentSet">
+      <EndProperty Name="Faculty">
+        <ScalarProperty Name="Id" ColumnName="Faculty_Id" />
+      </EndProperty>
+      <EndProperty Name="Department">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Faculty_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DepartmentGroup" TypeName="TeachersModel.DepartmentGroup" StoreEntitySet="GroupSet">
+      <EndProperty Name="Department">
+        <ScalarProperty Name="Id" ColumnName="Department_Id" />
+      </EndProperty>
+      <EndProperty Name="Group">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Department_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudyActionsModuleStudyAction" TypeName="TeachersModel.StudyActionsModuleStudyAction" StoreEntitySet="ModuleStudyActionSet">
+      <EndProperty Name="StudyActions">
+        <ScalarProperty Name="Id" ColumnName="StudyActions_Id" />
+      </EndProperty>
+      <EndProperty Name="ModuleStudyAction">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="StudyActions_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ModuleModuleStudyAction" TypeName="TeachersModel.ModuleModuleStudyAction" StoreEntitySet="ModuleStudyActionSet">
+      <EndProperty Name="Module">
+        <ScalarProperty Name="Id" ColumnName="Module_Id" />
+      </EndProperty>
+      <EndProperty Name="ModuleStudyAction">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Module_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TeacherModuleStudyAction" TypeName="TeachersModel.TeacherModuleStudyAction" StoreEntitySet="ModuleStudyActionSet">
+      <EndProperty Name="Teacher">
+        <ScalarProperty Name="Id" ColumnName="Teacher_Id" />
+      </EndProperty>
+      <EndProperty Name="ModuleStudyAction">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Teacher_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="GroupModuleStudyAction" TypeName="TeachersModel.GroupModuleStudyAction" StoreEntitySet="ModuleStudyActionSet">
+      <EndProperty Name="Group">
+        <ScalarProperty Name="Id" ColumnName="Group_Id" />
+      </EndProperty>
+      <EndProperty Name="ModuleStudyAction">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Group_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="DepartmentTeacher" TypeName="TeachersModel.DepartmentTeacher" StoreEntitySet="TeacherSet">
+      <EndProperty Name="Department">
+        <ScalarProperty Name="Id" ColumnName="Department_Id" />
+      </EndProperty>
+      <EndProperty Name="Teacher">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Department_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="StudyCycleModule" TypeName="TeachersModel.StudyCycleModule" StoreEntitySet="ModuleSet">
+      <EndProperty Name="StudyCycle">
+        <ScalarProperty Name="Id" ColumnName="StudyCycle_Id" />
+      </EndProperty>
+      <EndProperty Name="Module">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="StudyCycle_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TeacherTeacherWorkload" TypeName="TeachersModel.TeacherTeacherWorkload" StoreEntitySet="TeacherWorkloadSet">
+      <EndProperty Name="Teacher">
+        <ScalarProperty Name="Id" ColumnName="Teacher_Id" />
+      </EndProperty>
+      <EndProperty Name="TeacherWorkload">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
